@@ -1,7 +1,7 @@
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
 const allowedCors = [
-  'http://onemoreproject.nomoredomains.rocks/',
+  'http://onemoreproject.nomoredomains.rocks',
   'https://onemoreproject.nomoredomains.rocks',
   'localhost:3000',
 ];
