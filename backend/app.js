@@ -14,7 +14,7 @@ const NotFoundError = require('./errors/not-found-error');
 const app = express();
 const { PORT = 3000 } = process.env;
 app.use(cors({
-  origin: ['http://localhost:3000'],
+  origin: ['https://onemoreproject.nomoredomains.rocks'],
   allowedHeaders: ['Access-Control-Allow-Credentials', 'Access-Control-Allow-Origin', 'Content-Type'],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   credentials: true,

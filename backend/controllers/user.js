@@ -113,7 +113,7 @@ module.exports.login = (req, res, next) => {
       );
       res
         .cookie('jwt', token, {
-          domain: 'http://localhost:3000',
+          domain: '.onemoreproject.nomoredomains.rocks',
           maxAge: 3600000,
           httpOnly: false,
           sameSite: false,
