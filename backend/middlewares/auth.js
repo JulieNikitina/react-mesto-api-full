@@ -3,6 +3,11 @@ const UnauthorizedError = require('../errors/unauthorized-error');
 
 module.exports = (req, res, next) => {
   const { jwt: token } = req.cookies;
+  console.info('----------');
+  console.info(req.cookies);
+  console.info('----------');
+  console.info(req.headers);
+  console.info('----------');
   if (!token) {
     next(new UnauthorizedError('Необходима авторизация'));
     console.info('Токен не найден');
