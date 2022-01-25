@@ -9,10 +9,9 @@ function Login(props) {
   function handleSubmit(email, password) {
     auth.authorize(email, password)
       .then((data) => {
-        if (data.error) {
+        if (data?.error) {
           props.handleInfoTooltip(false, data.error);
-        }
-        if (data.token) {
+        } else {
           props.handleLogin();
           navigate('/');
         }

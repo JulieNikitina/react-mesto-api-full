@@ -13,7 +13,12 @@ const NotFoundError = require('./errors/not-found-error');
 
 const app = express();
 const { PORT = 3000 } = process.env;
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000'],
+  allowedHeaders: ['Access-Control-Allow-Credentials', 'Access-Control-Allow-Origin', 'Content-Type'],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  credentials: true,
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());

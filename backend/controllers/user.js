@@ -10,14 +10,14 @@ const ConflictError = require('../errors/conflict-error');
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.send({ users }))
+    .then((users) => res.send({users}))
     .catch(() => next(new InternalError()));
 };
 
 module.exports.getCurrentUserInfo = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
-      res.send({ user });
+      res.send({user});
     })
     .catch(() => next(new InternalError()));
 };
@@ -26,7 +26,7 @@ module.exports.getUserById = (req, res, next) => {
   User.findById(req.params.userId)
     .then((user) => {
       if (user) {
-        res.send({ user });
+        res.send({user});
       } else {
         next(new NotFoundError('Пользователь не найден'));
       }
@@ -52,7 +52,7 @@ module.exports.createUser = (req, res, next) => {
     .then((hash) => User.create({
       email, password: hash, name, about, avatar,
     })
-      .then((user) => res.status(201).send({ user })))
+      .then((user) => res.status(201).send({user})))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Переданы неверные данные'));
@@ -65,11 +65,11 @@ module.exports.createUser = (req, res, next) => {
 };
 
 module.exports.updateUserInfo = (req, res, next) => {
-  const { name, about } = req.body;
-  User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
+  const {name, about} = req.body;
+  User.findByIdAndUpdate(req.user._id, {name, about}, {new: true, runValidators: true})
     .then((user) => {
       if (user) {
-        res.send({ user });
+        res.send({user});
       } else {
         next(new NotFoundError('Пользователь не найден'));
       }
@@ -84,11 +84,11 @@ module.exports.updateUserInfo = (req, res, next) => {
 };
 
 module.exports.updateAvatar = (req, res, next) => {
-  const { avatar } = req.body;
-  User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
+  const {avatar} = req.body;
+  User.findByIdAndUpdate(req.user._id, {avatar}, {new: true, runValidators: true})
     .then((user) => {
       if (user) {
-        res.send({ user });
+        res.send({user});
       } else {
         next(new NotFoundError('Пользователь не найден'));
       }
@@ -104,7 +104,7 @@ module.exports.updateAvatar = (req, res, next) => {
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-  return User.findUserByCredentials(email, password)
+  User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
@@ -113,14 +113,16 @@ module.exports.login = (req, res, next) => {
       );
       res
         .cookie('jwt', token, {
+          domain: 'http://localhost:3000',
           maxAge: 3600000,
-          httpOnly: true,
+          httpOnly: false,
           sameSite: false,
-          secure: true,
+          secure: false,
         })
         .end();
     })
-    .catch(() => {
-      next(new InternalError());
+    .catch((error) => {
+      console.error(error);
+      next(error);
     });
 };

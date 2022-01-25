@@ -33,30 +33,17 @@ export const authorize = (email, password) => {
   return fetch(`${API_ENDPOINT}/signin`, {
     method: 'POST',
     headers: noAuthHeaders,
-    body: JSON.stringify({email, password})
+    body: JSON.stringify({email, password}),
+    credentials: 'include',
   })
     .then((response => {
-      if (response.status === 200) {
-        return response.json();
-      }
       if (response.status === 401) {
         return {error: "Вы ввели некорректный email или пароль"};
       }
       if (response.status === 400) {
         return {error: "Проверьте, что заполнили поля 'email' или 'пароль'"};
       }
-    }))
-    .then((data) => {
-      if (data.token) {
-        localStorage.setItem('jwt', data.token);
-        return data;
-      }
-      if (data.error) {
-        return data;
-      } else {
-        throw new Error('Missing jwt token in response');
-      }
-    });
+    }));
 };
 
 export const checkToken = (token) => {
