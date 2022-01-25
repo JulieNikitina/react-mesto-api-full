@@ -1,4 +1,4 @@
-const BASE_ROUTE = 'https://api.onemoreproject.nomoredomains.rocks';
+export const BASE_ROUTE = 'https://api.onemoreproject.nomoredomains.rocks';
 
 export const AUTORIZATION_PARAMS = {
   baseRoute: BASE_ROUTE,

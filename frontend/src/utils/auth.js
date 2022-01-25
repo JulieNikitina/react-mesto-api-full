@@ -1,11 +1,12 @@
-const BASE_URL = 'https://auth.nomoreparties.co';
+import {BASE_ROUTE} from "./utils";
+
 const noAuthHeaders = {
   'Accept': 'application/json',
   'Content-Type': 'application/json'
 }
 
 export const register = (email, password) => {
-  return fetch(`${BASE_URL}/signup`, {
+  return fetch(`${BASE_ROUTE}/signup`, {
     method: 'POST',
     headers: noAuthHeaders,
     body: JSON.stringify({
@@ -29,7 +30,7 @@ export const register = (email, password) => {
 };
 
 export const authorize = (email, password) => {
-  return fetch(`${BASE_URL}/signin`, {
+  return fetch(`${BASE_ROUTE}/signin`, {
     method: 'POST',
     headers: noAuthHeaders,
     body: JSON.stringify({email, password})
@@ -45,21 +46,21 @@ export const authorize = (email, password) => {
         return {error: "Проверьте, что заполнили поля 'email' или 'пароль'"};
       }
     }))
-    .then((data) => {
-      if (data.token) {
-        localStorage.setItem('jwt', data.token);
-        return data;
-      }
-      if (data.error) {
-        return data;
-      } else {
-        throw new Error('Missing jwt token in response');
-      }
-    });
+    // .then((data) => {
+    //   if (data.token) {
+    //     localStorage.setItem('jwt', data.token);
+    //     return data;
+    //   }
+    //   if (data.error) {
+    //     return data;
+    //   } else {
+    //     throw new Error('Missing jwt token in response');
+    //   }
+    // });
 };
 
 export const checkToken = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
+  return fetch(`${BASE_ROUTE}/users/me`, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
