@@ -1,7 +1,7 @@
-export const BASE_ROUTE = 'https://api.onemoreproject.nomoredomains.rocks';
+export const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || 'https://api.onemoreproject.nomoredomains.rocks';
 
 export const AUTORIZATION_PARAMS = {
-  baseRoute: BASE_ROUTE,
+  baseRoute: API_ENDPOINT,
   headers: {
     'Content-Type': 'application/json'
   }

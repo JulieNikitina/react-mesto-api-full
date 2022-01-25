@@ -1,4 +1,4 @@
-import {BASE_ROUTE} from "./utils";
+import { API_ENDPOINT } from "./utils";
 
 const noAuthHeaders = {
   'Accept': 'application/json',
@@ -6,7 +6,7 @@ const noAuthHeaders = {
 }
 
 export const register = (email, password) => {
-  return fetch(`${BASE_ROUTE}/signup`, {
+  return fetch(`${API_ENDPOINT}/signup`, {
     method: 'POST',
     headers: noAuthHeaders,
     body: JSON.stringify({
@@ -30,7 +30,7 @@ export const register = (email, password) => {
 };
 
 export const authorize = (email, password) => {
-  return fetch(`${BASE_ROUTE}/signin`, {
+  return fetch(`${API_ENDPOINT}/signin`, {
     method: 'POST',
     headers: noAuthHeaders,
     body: JSON.stringify({email, password})
@@ -60,7 +60,7 @@ export const authorize = (email, password) => {
 };
 
 export const checkToken = (token) => {
-  return fetch(`${BASE_ROUTE}/users/me`, {
+  return fetch(`${API_ENDPOINT}/users/me`, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
