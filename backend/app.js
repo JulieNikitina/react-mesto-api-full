@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -10,11 +9,11 @@ const { login, createUser } = require('./controllers/user');
 const auth = require('./middlewares/auth');
 const regExp = require('./utils/regexp');
 const NotFoundError = require('./errors/not-found-error');
+const { APP_PORT, FRONTEND_DOMAIN, APP_PROTOCOL } = require('./config');
 
 const app = express();
-const { PORT = 3000 } = process.env;
 app.use(cors({
-  origin: ['https://onemoreproject.nomoredomains.rocks'],
+  origin: [`${APP_PROTOCOL}://${FRONTEND_DOMAIN}`],
   allowedHeaders: ['Access-Control-Allow-Credentials', 'Access-Control-Allow-Origin', 'Content-Type'],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   credentials: true,
@@ -71,6 +70,6 @@ app.use((err, req, res, next) => {
   res.send({ message: err.message || 'Неизвестная ошибка' });
 });
 
-app.listen(PORT, () => {
-  console.info(`App listening on port ${PORT}`);
+app.listen(APP_PORT, () => {
+  console.info(`App listening on port ${APP_PORT}`);
 });
