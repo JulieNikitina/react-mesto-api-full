@@ -33,7 +33,7 @@ export const authorize = (email, password) => {
   return fetch(`${BASE_ROUTE}/signin`, {
     method: 'POST',
     headers: noAuthHeaders,
-    credentials: "include",
+    // credentials: "include",
     body: JSON.stringify({email, password})
   })
     .then((response => {
