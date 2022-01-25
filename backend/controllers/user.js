@@ -115,8 +115,8 @@ module.exports.login = (req, res, next) => {
         .cookie('jwt', token, {
           maxAge: 3600000,
           httpOnly: true,
-          sameSite: true,
-          domain: '.onemoreproject.nomoredomains.rocks',
+          sameSite: false,
+          secure: true,
         })
         .end();
     })

@@ -33,6 +33,7 @@ export const authorize = (email, password) => {
   return fetch(`${BASE_ROUTE}/signin`, {
     method: 'POST',
     headers: noAuthHeaders,
+    credentials: "include",
     body: JSON.stringify({email, password})
   })
     .then((response => {
@@ -46,17 +47,17 @@ export const authorize = (email, password) => {
         return {error: "Проверьте, что заполнили поля 'email' или 'пароль'"};
       }
     }))
-    // .then((data) => {
-    //   if (data.token) {
-    //     localStorage.setItem('jwt', data.token);
-    //     return data;
-    //   }
-    //   if (data.error) {
-    //     return data;
-    //   } else {
-    //     throw new Error('Missing jwt token in response');
-    //   }
-    // });
+    .then((data) => {
+      if (data.token) {
+        localStorage.setItem('jwt', data.token);
+        return data;
+      }
+      if (data.error) {
+        return data;
+      } else {
+        throw new Error('Missing jwt token in response');
+      }
+    });
 };
 
 export const checkToken = (token) => {
