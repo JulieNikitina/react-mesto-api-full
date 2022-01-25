@@ -1,4 +1,4 @@
-import { API_ENDPOINT } from "./utils";
+import {API_ENDPOINT} from "./utils";
 
 const noAuthHeaders = {
   'Accept': 'application/json',
@@ -25,7 +25,7 @@ export const register = (email, password) => {
     if (body.message) {
       return {error: body.message};
     }
-    return {email: body.data.email};
+    return {email: body.user.email};
   });
 };
 
