@@ -34,42 +34,33 @@ function App() {
 
   React.useEffect(() => {
     projectApi.getInitialCards()
-      .then((resultInitialCards) => {
-        setCards(resultInitialCards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((resultInitialCards) => setCards(resultInitialCards.cards))
+      .catch((err) => console.log(err));
   }, []);
 
   React.useEffect(() => {
     projectApi.getUserInfo()
       .then((resultUserInfo) => {
         setCurrentUser({
-          name: resultUserInfo.name,
-          about: resultUserInfo.about,
-          avatar: resultUserInfo.avatar,
-          _id: resultUserInfo._id
+          name: resultUserInfo.user.name,
+          about: resultUserInfo.user.about,
+          avatar: resultUserInfo.user.avatar,
+          _id: resultUserInfo.user._id
         });
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
   }, []);
 
   React.useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
-    if (jwt) {
-      auth.checkToken(jwt).then((res) => {
-        if (res) {
-          setCurrentUserEmail(res.data.email);
-          setLoggedIn(true);
-          navigate("/");
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
-    }
+    auth.checkToken().then((res) => {
+      if (res) {
+        setCurrentUserEmail(res.user.email);
+        setLoggedIn(true);
+        navigate("/");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
   }, [loggedIn, setCurrentUserEmail, setLoggedIn, navigate]);
 
   function handleCardLike(card) {

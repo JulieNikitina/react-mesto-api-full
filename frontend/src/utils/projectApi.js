@@ -3,8 +3,10 @@ import {AUTORIZATION_PARAMS} from "./utils";
 class Api {
   constructor(params) {
     this._params = params;
-    this._queryParams = {};
-    this._queryParams.headers = this._params.headers
+    this._queryParams = {
+      credentials: 'include',
+      headers: this._params.headers,
+    };
   }
 
   _getResponseData(res) {

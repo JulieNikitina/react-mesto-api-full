@@ -16,7 +16,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "npm run build && scp -r ./build/* julie@62.84.126.25:/home/julie/react-mesto-api-full/frontend/build",
+    "deploy": "npm run build && rsync -r -v --delete ./build/* julie@62.84.126.25:/home/julie/react-mesto-api-full/frontend/build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
