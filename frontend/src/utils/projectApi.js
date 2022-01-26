@@ -32,8 +32,8 @@ class Api {
 
   patchUserInfo(name, about) {
     const queryParams = {
+      ...this._queryParams,
       method: 'PATCH',
-      headers: this._queryParams.headers,
       body: JSON.stringify({
         name: name,
         about: about
@@ -47,8 +47,8 @@ class Api {
 
   patchUserPhoto(link) {
     const queryParams = {
+      ...this._queryParams,
       method: 'PATCH',
-      headers: this._queryParams.headers,
       body: JSON.stringify({
         avatar: link,
       })
@@ -61,8 +61,8 @@ class Api {
 
   addNewCard(name, link) {
     const queryParams = {
+      ...this._queryParams,
       method: 'POST',
-      headers: this._queryParams.headers,
       body: JSON.stringify({
         name: name,
         link: link
@@ -76,8 +76,8 @@ class Api {
 
   deleteCard(id) {
     const queryParams = {
+      ...this._queryParams,
       method: 'DELETE',
-      headers: this._queryParams.headers
     }
     return fetch(`${this._params.baseRoute}/cards/${id}`, queryParams)
       .then(res => {
@@ -88,8 +88,8 @@ class Api {
   handleLikeButton(id, isLiked) {
     if (!isLiked) {
       const queryParams = {
+        ...this._queryParams,
         method: 'PUT',
-        headers: this._queryParams.headers
       }
       return fetch(`${this._params.baseRoute}/cards/likes/${id}`, queryParams)
         .then(res => {
@@ -97,8 +97,8 @@ class Api {
         });
     } else {
       const queryParams = {
+        ...this._queryParams,
         method: 'DELETE',
-        headers: this._queryParams.headers
       }
       return fetch(`${this._params.baseRoute}/cards/likes/${id}`, queryParams)
         .then(res => {
