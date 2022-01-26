@@ -123,7 +123,7 @@ function App() {
   function handleAddPlace(title, link) {
     projectApi.addNewCard(title, link)
       .then((newCard) => {
-        setCards([newCard, ...cards]);
+        setCards([newCard.card, ...cards]);
         closeAllPopups();
       })
       .catch((err) => {
