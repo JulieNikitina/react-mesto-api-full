@@ -58,7 +58,12 @@ app.use('/users', require('./routes/user'));
 app.use('/cards', require('./routes/card'));
 
 app.post('/signout', (req, res) => {
-  res.status(200).clearCookie('jwt').send({ message: 'Выход' });
+  res.status(200).clearCookie('jwt', {
+    domain: `.${FRONTEND_DOMAIN}`,
+    httpOnly: false,
+    sameSite: false,
+    secure: false,
+  }).send({ message: 'Выход' });
 });
 
 app.use((req, res, next) => {
