@@ -52,26 +52,18 @@ function App() {
       } else {
         setIsInitialized(true);
       }
-    }).catch((error) => console.error(error));
+    }).catch((error) => {
+      setIsInitialized(true);
+      console.error(error)}
+    );
   }, [navigate]);
 
-  React.useEffect(() => {
-    auth.checkToken().then((res) => {
-      if (res) {
-        setCurrentUserEmail(res.user.email);
-        setLoggedIn(true);
-        navigate("/");
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
-  }, [loggedIn, setCurrentUserEmail, setLoggedIn, navigate]);
-
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    console.log(card)
+    const isLiked = card.likes.includes(currentUser._id);
     projectApi.handleLikeButton(card._id, isLiked)
       .then((newCard) => {
-        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+        setCards((state) => state.map((c) => c._id === card._id ? newCard.card : c));
       })
       .catch((err) => {
         console.log(err);

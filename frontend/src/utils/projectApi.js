@@ -91,7 +91,7 @@ class Api {
         ...this._queryParams,
         method: 'PUT',
       }
-      return fetch(`${this._params.baseRoute}/cards/likes/${id}`, queryParams)
+      return fetch(`${this._params.baseRoute}/cards/${id}/likes`, queryParams)
         .then(res => {
           return this._getResponseData(res)
         });
@@ -100,7 +100,7 @@ class Api {
         ...this._queryParams,
         method: 'DELETE',
       }
-      return fetch(`${this._params.baseRoute}/cards/likes/${id}`, queryParams)
+      return fetch(`${this._params.baseRoute}/cards/${id}/likes`, queryParams)
         .then(res => {
           return this._getResponseData(res)
         });
