@@ -107,7 +107,11 @@ class Api {
     }
   }
   signOut() {
-    return fetch(`${this._params.baseRoute}/signout`, this._queryParams)
+    const queryParams = {
+      ...this._queryParams,
+      method: 'POST',
+    }
+    return fetch(`${this._params.baseRoute}/signout`, queryParams)
       .then(res => {
         return this._getResponseData(res)
       });

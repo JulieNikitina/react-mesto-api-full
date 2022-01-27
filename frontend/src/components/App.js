@@ -161,6 +161,7 @@ function App() {
     setLoggedIn(false)
     projectApi.signOut()
       .then(() => {
+        console.log("LOGOUT")
         navigate("/sign-in")
       })
       .catch((err) => {
