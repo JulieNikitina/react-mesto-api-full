@@ -158,11 +158,9 @@ function App() {
   }
 
   function handleLogout() {
-    setLoggedIn(false)
     projectApi.signOut()
       .then(() => {
-        console.log("LOGOUT")
-        navigate("/sign-in")
+        window.location.href = '/sign-in';
       })
       .catch((err) => {
         console.log(err);
