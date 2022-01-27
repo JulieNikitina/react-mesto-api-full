@@ -59,7 +59,6 @@ function App() {
   }, [navigate]);
 
   function handleCardLike(card) {
-    console.log(card)
     const isLiked = card.likes.includes(currentUser._id);
     projectApi.handleLikeButton(card._id, isLiked)
       .then((newCard) => {
@@ -160,6 +159,13 @@ function App() {
 
   function handleLogout() {
     setLoggedIn(false)
+    projectApi.signOut()
+      .then(() => {
+        navigate("/sign-in")
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleCredentialsFormPopup(isSuccess, message) {

@@ -18,7 +18,7 @@ module.exports.getUsers = (req, res, next) => {
 module.exports.getCurrentUserInfo = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
-      res.send({user});
+      res.send({ user });
     })
     .catch(() => next(new InternalError()));
 };
@@ -53,7 +53,7 @@ module.exports.createUser = (req, res, next) => {
     .then((hash) => User.create({
       email, password: hash, name, about, avatar,
     })
-      .then((user) => res.status(201).send({user})))
+      .then((user) => res.status(201).send({ user })))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Переданы неверные данные'));
@@ -66,11 +66,11 @@ module.exports.createUser = (req, res, next) => {
 };
 
 module.exports.updateUserInfo = (req, res, next) => {
-  const {name, about} = req.body;
+  const { name, about } = req.body;
   User.findByIdAndUpdate(req.user._id, {name, about}, {new: true, runValidators: true})
     .then((user) => {
       if (user) {
-        res.send({user});
+        res.send({ user });
       } else {
         next(new NotFoundError('Пользователь не найден'));
       }
@@ -89,7 +89,7 @@ module.exports.updateAvatar = (req, res, next) => {
   User.findByIdAndUpdate(req.user._id, {avatar}, {new: true, runValidators: true})
     .then((user) => {
       if (user) {
-        res.send({user});
+        res.send({ user });
       } else {
         next(new NotFoundError('Пользователь не найден'));
       }

@@ -106,6 +106,12 @@ class Api {
         });
     }
   }
+  signOut() {
+    return fetch(`${this._params.baseRoute}/signout`, this._queryParams)
+      .then(res => {
+        return this._getResponseData(res)
+      });
+  }
 }
 
 export const projectApi = new Api(AUTORIZATION_PARAMS);

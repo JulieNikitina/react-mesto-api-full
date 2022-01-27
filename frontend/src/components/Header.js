@@ -6,7 +6,6 @@ function Header(props) {
   const navigate = useNavigate();
 
   function signOut() {
-    localStorage.removeItem('jwt');
     props.handleLogout();
     navigate('/sign-in');
   }
