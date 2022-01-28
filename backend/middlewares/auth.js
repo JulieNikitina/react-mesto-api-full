@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const UnauthorizedError = require('../errors/unauthorized-error');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 module.exports = (req, res, next) => {
   const { jwt: token } = req.cookies;
   if (!token) {
@@ -9,7 +11,7 @@ module.exports = (req, res, next) => {
   } else {
     let payload;
     try {
-      payload = jwt.verify(token, 'tut-budet-secret');
+      payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
     } catch (err) {
       next(new UnauthorizedError('Не валидный токен авторизации'));
       console.error('Не валидный токен авторизации');
