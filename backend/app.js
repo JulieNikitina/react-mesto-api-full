@@ -10,6 +10,7 @@ const auth = require('./middlewares/auth');
 const regExp = require('./utils/regexp');
 const NotFoundError = require('./errors/not-found-error');
 const { APP_PORT, FRONTEND_DOMAIN, APP_PROTOCOL } = require('./config');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 app.use(cors({
@@ -30,6 +31,7 @@ mongoose.connect('mongodb://localhost:27017/mydb', {
   }
 });
 
+app.use(requestLogger);
 app.post(
   '/signin',
   celebrate({
@@ -70,6 +72,7 @@ app.use((req, res, next) => {
   next(new NotFoundError('Пока запрашиваемой вами страницы нет, но не отчаивайтесь, возмоно она появится'));
 });
 
+app.use(errorLogger);
 app.use(errors());
 
 // eslint-disable-next-line no-unused-vars
