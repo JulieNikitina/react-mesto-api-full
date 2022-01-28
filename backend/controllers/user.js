@@ -7,7 +7,6 @@ const InternalError = require('../errors/internal-error');
 const NotFoundError = require('../errors/not-found-error');
 const BadRequestError = require('../errors/bad-request-error');
 const ConflictError = require('../errors/conflict-error');
-const { FRONTEND_DOMAIN } = require('../config');
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
@@ -116,7 +115,7 @@ module.exports.login = (req, res, next) => {
       );
       res
         .cookie('jwt', token, {
-          domain: `.${FRONTEND_DOMAIN}`,
+          domain: '.onemoreproject.nomoredomains.rocks',
           maxAge: week,
           httpOnly: false,
           sameSite: false,

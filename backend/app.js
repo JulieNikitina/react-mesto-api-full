@@ -9,12 +9,11 @@ const { login, createUser } = require('./controllers/user');
 const auth = require('./middlewares/auth');
 const regExp = require('./utils/regexp');
 const NotFoundError = require('./errors/not-found-error');
-const { APP_PORT, FRONTEND_DOMAIN, APP_PROTOCOL } = require('./config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 app.use(cors({
-  origin: [`${APP_PROTOCOL}://${FRONTEND_DOMAIN}`],
+  origin: ['https://onemoreproject.nomoredomains.rocks'],
   allowedHeaders: ['Access-Control-Allow-Credentials', 'Access-Control-Allow-Origin', 'Content-Type'],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   credentials: true,
@@ -61,7 +60,7 @@ app.use('/cards', require('./routes/card'));
 
 app.post('/signout', (req, res) => {
   res.status(200).clearCookie('jwt', {
-    domain: `.${FRONTEND_DOMAIN}`,
+    domain: '.onemoreproject.nomoredomains.rocks',
     httpOnly: false,
     sameSite: false,
     secure: false,
@@ -82,6 +81,6 @@ app.use((err, req, res, next) => {
   res.send({ message: err.message || 'Неизвестная ошибка' });
 });
 
-app.listen(APP_PORT, () => {
-  console.info(`App listening on port ${APP_PORT}`);
+app.listen(3000, () => {
+  console.info('App listening on port 3000');
 });
