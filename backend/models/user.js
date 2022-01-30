@@ -9,6 +9,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    validate: {
+      validator(v) {
+        // eslint-disable-next-line no-undef
+        return validator.isEmail(v);
+      },
+    },
   },
   password: {
     type: String,
