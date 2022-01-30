@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const validator = require('validator');
+
 const cardSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -13,7 +15,7 @@ const cardSchema = new mongoose.Schema({
     validate: {
       validator(v) {
         // eslint-disable-next-line no-undef
-        return validator.isURL(v);
+        return validator._isURL(v);
       },
     },
   },

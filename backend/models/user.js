@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 // const regExp = require('../utils/regexp');
+const validator = require('validator');
 const InvalidCredentialsError = require('../errors/invalid-credentials-error');
 
 const userSchema = new mongoose.Schema({
@@ -33,7 +34,7 @@ const userSchema = new mongoose.Schema({
     validate: {
       validator(v) {
         // eslint-disable-next-line no-undef
-        return validator.isURL(v);
+        return validator._isURL(v);
       },
     },
   },
