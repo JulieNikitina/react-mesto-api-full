@@ -32,13 +32,7 @@ module.exports.deleteCard = (req, res, next) => {
       return card.remove()
         .then(() => res.send({ message: 'Карточка удалена' }));
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new BadRequestError('Переданы некорректные данные'));
-      } else {
-        next(new InternalError());
-      }
-    });
+    .catch(next);
 };
 
 module.exports.likeCard = (req, res, next) => {
