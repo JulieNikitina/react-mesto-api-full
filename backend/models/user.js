@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const regExp = require('../utils/regexp');
 const InvalidCredentialsError = require('../errors/invalid-credentials-error');
+const validator = require("validator/es");
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -32,7 +33,8 @@ const userSchema = new mongoose.Schema({
     default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
     validate: {
       validator(v) {
-        return regExp.test(v);
+        // eslint-disable-next-line no-undef
+        return validator.isURL(v);
       },
     },
   },
