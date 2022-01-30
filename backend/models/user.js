@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
     validate: {
       validator(v) {
         // eslint-disable-next-line no-undef
-        return validator._isURL(v);
+        return validator.isURL(v);
       },
     },
   },
